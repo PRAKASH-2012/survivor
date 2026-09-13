@@ -1,0 +1,6 @@
+import {sqliteTable,text,integer,index} from 'drizzle-orm/sqlite-core';
+export const players=sqliteTable('players',{userId:text('user_id').primaryKey(),id:text('id').notNull().unique(),nickname:text('nickname').notNull(),createdAt:integer('created_at').notNull()});
+export const runs=sqliteTable('runs',{id:text('id').primaryKey(),userId:text('user_id').notNull().references(()=>players.userId),startedAt:integer('started_at').notNull(),finishedAt:integer('finished_at'),score:integer('score'),durationMs:integer('duration_ms'),coins:integer('coins')},t=>[index('idx_runs_user_score').on(t.userId,t.score)]);
+export const accounts=sqliteTable('accounts',{userId:text('user_id').primaryKey().references(()=>players.userId),username:text('username').notNull().unique(),passwordHash:text('password_hash').notNull(),createdAt:integer('created_at').notNull()});
+export const sessions=sqliteTable('sessions',{tokenHash:text('token_hash').primaryKey(),userId:text('user_id').notNull().references(()=>accounts.userId),expiresAt:integer('expires_at').notNull()},t=>[index('idx_sessions_expires').on(t.expiresAt),index('idx_sessions_user').on(t.userId)]);
+export const authLimits=sqliteTable('auth_limits',{key:text('key').primaryKey(),attempts:integer('attempts').notNull(),expiresAt:integer('expires_at').notNull()},t=>[index('idx_auth_limits_expires').on(t.expiresAt)]);

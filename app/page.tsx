@@ -1,0 +1,3 @@
+import AuthForm from './auth-form';
+export const dynamic='force-dynamic';
+export default function Home(){return <main className="login-shell"><header className="site-header"><a className="brand" href="/">ϟ NEON RIFT</a><span className="eyebrow">THE RANKED ARCADE</span></header><section className="login-card"><div className="login-art"><span className="eyebrow">ONE MORE RUN.</span><h1>NEON<br/><em>RIFT.</em></h1><p>Dodge the red. Chase the gold.<br/>Make your mark on the leaderboard.</p><div className="login-rules"><span>◆ Move</span><span>ϟ Dash</span><span>● Collect</span></div></div><div className="login-form"><AuthForm/></div></section><footer className="login-footer">WASD / ARROW KEYS · TOUCH CONTROLS · SPACE TO DASH</footer></main>}
